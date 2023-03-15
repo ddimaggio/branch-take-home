@@ -11,10 +11,19 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Implementation of GitHubService with methods to retrieve the User's info and their repos
+ */
 @Service
 public class GitHubServiceImpl implements GitHubService {
 
     public GitHubServiceImpl () {}
+
+    /**
+     * Calls https://api.github.com/users/{username} to retrieve the given user's data
+     * @param username - the GitHub username provided by the user
+     * @return the data required to populate UserResponseDTO
+     */
     @Override
     public ResponseEntity getUser(String username) {
         String url = "https://api.github.com/users/" + username;
@@ -28,6 +37,11 @@ public class GitHubServiceImpl implements GitHubService {
         return re;
     }
 
+    /**
+     * Calls https://api.github.com/users/{username}/repo to retrieve the given user's public repos
+     * @param username - the GitHub username provided by the user
+     * @return a list of Repo url's and names to populate RepoDTO and then be merged with UserResponseDTO
+     */
     @Override
     public List<GitHubRepo> getRepos(String username) {
         String url = "https://api.github.com/users/" + username + "/repos";

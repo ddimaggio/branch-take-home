@@ -20,6 +20,12 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(GitHubService gitHubService){
         this.gitHubService = gitHubService;
     }
+
+    /**
+     * Retrieves user and repo data from the GitHubService then maps them to our UserResponseDTO before responding
+     * @param username - username of the GitHub user to query
+     * @return a mapped and merged UserResponseDTO with an OK (200) response
+     */
     @Override
     public ResponseEntity<UserResponseDTO> getUser(String username) {
         ResponseEntity<GitHubUser> gitHubUserEntity = gitHubService.getUser(username);

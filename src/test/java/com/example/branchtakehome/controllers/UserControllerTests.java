@@ -8,11 +8,9 @@ import com.example.branchtakehome.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -20,7 +18,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-@ExtendWith(MockitoExtension.class)
 public class UserControllerTests {
 
     UserService userService;
@@ -34,6 +31,9 @@ public class UserControllerTests {
         userController = new UserController(userService);
     }
 
+    /**
+     * End-to-end test with data retrieved from GitHub
+     */
     @Test
     void testSuccess() {
         LocalDateTime localDateTime = LocalDateTime.parse("2011-01-25T18:44:36");
@@ -51,6 +51,9 @@ public class UserControllerTests {
         Assertions.assertEquals(8, body.getRepos().size());
     }
 
+    /**
+     * Runs the controller against 5 different bad usernames
+     */
     @ParameterizedTest
     @NullSource
     @ValueSource(strings = {"-octocat", "octocat-", "octo--cat", "octocatoctocatoctocatoctocatoctocatoctocat"})
